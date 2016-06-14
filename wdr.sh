@@ -8,7 +8,9 @@ adb shell chmod 777 /system/bin/test-cameragl
 adb shell /system/bin/test-cameragl
 sleep 1
 #adb pull /sdcard/wdrSrc.jpg ./
-adb pull /data/local/result.jpg ./
-adb logcat *:E
-#adb logcat -s MY_LOG_TAG
+adb pull /data/local/resultAVG.jpg ./
+adb pull /data/local/resultNON.jpg ./
+adb pull /data/local/resultMAX.jpg ./
+#adb logcat *:E
+adb logcat -s mfdenoise
 adb logcat -c

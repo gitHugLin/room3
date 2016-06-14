@@ -14,7 +14,7 @@
 #include "stdio.h"
 #include <time.h>
 
-#define NUM_TEXTURE_IMAGE 4
+#define NUM_TEXTURE_IMAGE 1
 
 using namespace android;
 
@@ -98,8 +98,12 @@ int GLESUtils::initOpenGLES(alloc_device_t *m_alloc_dev, int width, int height)
 	
     float gSize[2] = {mWidth,mHeight};
     glUniform2fv(vSizeHandle,1,gSize);
-    checkGlError("initOpenGLES-glGetUniformLocation");
-
+    checkGlError("initOpenGLES-glGetUniformLocation:vSizeHandle");
+    
+    GLfloat nonlCurve[17] = {0.0,887.0,1360.0,1714.0,2007.0,2261.0,2489.0,2697.0,2889.0,3069.0,3237.0,3397.0,3549.0,3694.0,3833.0,3967.0,4096.0};
+	glUniform1fv(glGetUniformLocation(programObject, "nonCurve"), 17, nonlCurve);
+	checkGlError("initOpenGLES-glGetUniformLocation:nonlCurve");
+	
     initializeTmpResEGLImage(m_alloc_dev, (int) mWidth, (int) mHeight, &targetTexId, &fboTargetHandle, GL_TEXTURE7);
     checkGlError("initializeTmpResEGLImage");
 
@@ -182,7 +186,7 @@ int GLESUtils::updateImageData(struct cv_fimc_buffer *m_buffers_capture) {
 		if (mCameraGLTexImage[mCurrentId] == NULL) {
 			LOGD("create image id: %d", mCurrentId);
 		    mCameraGLTexImage[mCurrentId] = new CameraGLTexImage(mCurrentId, display, (char*)m_buffers_capture->start, (m_buffers_capture->handle), m_buffers_capture->share_fd);
-		    mCameraGLTexImage[mCurrentId]->createTexImage(mWidth, mHeight, HAL_PIXEL_FORMAT_YCrCb_NV12);//HAL_PIXEL_FORMAT_YV12);//HAL_PIXEL_FORMAT_YCrCb_NV12);
+		    mCameraGLTexImage[mCurrentId]->createTexImage(mWidth, mHeight, HAL_PIXEL_FORMAT_YV12);//HAL_PIXEL_FORMAT_YV12);//HAL_PIXEL_FORMAT_YCrCb_NV12);
 		}
 		checkGlError("createTexImage");
 		//LOGD("create tex image done");
@@ -364,7 +368,7 @@ int GLESUtils::InitEGL()
                             EGL_RED_SIZE,       8,
                             EGL_GREEN_SIZE,     8,
                             EGL_BLUE_SIZE,      8,
-                            EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
+                            EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,  //EGL_OPENGL_ES2_BIT  EGL_OPENGL_ES3_BIT_KHR
                             EGL_NONE};
 
     // Get default display connection

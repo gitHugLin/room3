@@ -28,13 +28,17 @@ using android::sp;
 const char gPerspectiveVertexShader[] =
         "attribute vec4 a_position;\n"
                 "uniform vec2 textureSize;\n"
+                "uniform float nonCurve[17];"
                 "attribute vec2 a_texCoord;\n"
                 "varying vec2 texCoord;\n"
+                "varying float nonlCurve[17];"
                 "void main() {\n"
+                "	for(int i = 0; i < 17; i++) {\n"
+                "  nonlCurve[i] =  nonCurve[i];}\n"
                 "  texCoord = a_texCoord;\n"
                 "  gl_Position = a_position;\n"
                 "}\n";
-
+/*
 const char gPerspectiveFragmentShader[] =
         "#extension GL_OES_EGL_image_external : require\n"
         "precision highp float;\n"
@@ -43,8 +47,76 @@ const char gPerspectiveFragmentShader[] =
 
                 "void main() {\n"
                 "  gl_FragColor = texture2D(u_samplerTexture,texCoord);\n"
-                //"  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n"
                 "}\n";
+       
+  const char gPerspectiveFragmentShader[] =
+        "#extension GL_OES_EGL_image_external : require\n"
+        "precision highp float;\n"
+                "varying vec2 texCoord;\n"
+                "uniform samplerExternalOES u_samplerTexture;\n"
+				"float nonlCurve[17] = {0.0,887.0,1360.0,1714.0,2007.0,2261.0,2489.0,2697.0,2889.0,3069.0,3237.0,3397.0,3549.0,3694.0,3833.0,3967.0,4096.0};\n"
+				"float nonlinearCurveLut(float lumiVal) {\n"
+				"lumiVal = lumiVal*255.0;\n"
+				"float cumXVal = 0.0;\n"
+				"float xDeltN = 0.0;\n"
+				"float interpWeight = 0.0;\n"
+				"float cumYLeft = 0.0, cumYRight = 0.0;\n"
+				"float newLumi = 0.0;\n"
+				"for(int i = 0; i < 16; i++) {\n"
+				"cumXVal += 256.0;\n"
+				"if (lumiVal < cumXVal) {\n"
+				"cumYLeft = nonlCurve[i];\n"
+				"cumYRight = nonlCurve[i+1];\n"
+				"interpWeight = cumXVal - lumiVal;\n"
+				"newLumi = interpWeight*cumYLeft + (xDeltN - interpWeight)*cumYRight;\n"
+				"newLumi = (newLumi + 128.0)>> 8;\n"
+				"newLumi = newLumi>>2;\n"
+				"newLumi = newLumi<<2;\n"
+				"break;}}\n"
+				"return newLumi/255.0;}\n"
+				"#define MAX(a,b,c) (a>b?(a>c?a:c):(b>c?b:c))\n"
+                "void main() {\n"
+                "		vec3 newPixel;\n"
+                "		vec4 oldPixel = texture2D(u_samplerTexture,texCoord);\n"
+				"		newPixel.x = oldPixel.r*0.2126 + oldPixel.g*0.7152+oldPixel.b*0.0722;\n"
+				"		newPixel.y =1.0;\n"
+				"		newPixel.z = MAX(newPixel.r,newPixel.g,newPixel.b);\n"
+                "  	gl_FragColor = vec4(newPixel,1.0);\n"
+                "}\n";              
+                 */   
+             const char gPerspectiveFragmentShader[] =
+        "#extension GL_OES_EGL_image_external : require\n"
+        "precision highp float;\n"
+                "varying vec2 texCoord;\n"
+                "varying float nonlCurve[17];"
+                "uniform samplerExternalOES u_samplerTexture;\n"
+                "float nonlinearCurveLut(float lumiVal) {\n"
+				"lumiVal = lumiVal*255.0;\n"
+				"float cumXVal = 0.0;\n"
+				"float xDeltN = 256.0;\n"
+				"float interpWeight = 0.0;\n"
+				"float cumYLeft = 0.0, cumYRight = 0.0;\n"
+				"float newLumi = 0.0;\n"
+				"for(int i = 0; i < 16; i++) {\n"
+				"cumXVal += 256.0;\n"
+				"if (lumiVal < cumXVal) {\n"
+				"cumYLeft = nonlCurve[i];\n"
+				"cumYRight = nonlCurve[i+1];\n"
+				"interpWeight = cumXVal - lumiVal;\n"
+				"newLumi = interpWeight*cumYLeft + (xDeltN - interpWeight)*cumYRight;\n"
+				"newLumi = ((newLumi + 128.0) - (newLumi - (newLumi/256.0)*256.0))/256.0;\n"
+				"break;}}\n"
+				"return newLumi/255.0;}\n"
+                "#define MAX(a,b,c) (a>b?(a>c?a:c):(b>c?b:c))\n"
+                "void main() {\n"
+                "		vec3 newPixel;\n"
+                "		vec4 oldPixel = texture2D(u_samplerTexture,texCoord);\n"
+				"		newPixel.x = oldPixel.r*0.2126 + oldPixel.g*0.7152+oldPixel.b*0.0722;\n"
+				"		newPixel.y = nonlinearCurveLut(newPixel.x);\n"
+				"		newPixel.z = MAX(oldPixel.r,oldPixel.g,oldPixel.b);\n"
+                "  	gl_FragColor = vec4(newPixel,1.0);\n"
+                "}\n";              
+
 
 class GLESUtils
 {

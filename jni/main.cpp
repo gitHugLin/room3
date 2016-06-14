@@ -45,8 +45,8 @@ int main () {
 	if (!mCameraGL->initialized) {
 		LOGE("initializing...");
 		Mat bayer;
-        bayer = imread( "/sdcard/night.pgm",0);
-        cvtColor(bayer, rgb, CV_BayerBG2RGB);
+        rgb = imread( "/sdcard/wdrDst.jpg");
+        //cvtColor(bayer, rgb, CV_BayerBG2RGB);
 		width = rgb.cols;
 		height = rgb.rows;
 		mCameraGL->init(NULL, width, height);
@@ -66,7 +66,11 @@ int main () {
 	LOGD("precess result: %.8x", result);
 	//SkSavePng(width, height, (void*)result);
 	Mat rgba(height, width, CV_8UC4, (void*)result);
-	imwrite("/data/local/result.jpg", rgba);
+	vector<Mat> mBgrChannel;
+	split(rgba,mBgrChannel);
+	imwrite("/data/local/resultAVG.jpg", mBgrChannel[0]);
+	imwrite("/data/local/resultNON.jpg", mBgrChannel[1]);
+	imwrite("/data/local/resultMAX.jpg", mBgrChannel[2]);
 
 	LOGE("destroying...");
 	mCameraGL->destroy();
