@@ -45,8 +45,9 @@ int main () {
 	if (!mCameraGL->initialized) {
 		LOGE("initializing...");
 		Mat bayer;
-        rgb = imread( "/sdcard/wdrDst.jpg");
-        //cvtColor(bayer, rgb, CV_BayerBG2RGB);
+        bayer = imread( "/sdcard/night.pgm",0);
+        cvtColor(bayer, rgb, CV_BayerBG2RGB);
+        imwrite("/data/local/srcImage.jpg",rgb);
 		width = rgb.cols;
 		height = rgb.rows;
 		mCameraGL->init(NULL, width, height);
@@ -56,6 +57,7 @@ int main () {
 	LOGE("updating...");
 	cvtColor(rgb, yv12, COLOR_RGB2YUV_YV12);
 	m_buffers_capture->start = yv12.data;
+	m_buffers_capture->format = HAL_PIXEL_FORMAT_YV12;
 	m_buffers_capture->share_fd = 0;
 	m_buffers_capture->length = width * height * 3 / 2;
 	m_buffers_capture->handle = NULL;
@@ -66,11 +68,13 @@ int main () {
 	LOGD("precess result: %.8x", result);
 	//SkSavePng(width, height, (void*)result);
 	Mat rgba(height, width, CV_8UC4, (void*)result);
-	vector<Mat> mBgrChannel;
-	split(rgba,mBgrChannel);
-	imwrite("/data/local/resultAVG.jpg", mBgrChannel[0]);
-	imwrite("/data/local/resultNON.jpg", mBgrChannel[1]);
-	imwrite("/data/local/resultMAX.jpg", mBgrChannel[2]);
+	imwrite("/data/local/result.jpg",rgba);
+	
+	//vector<Mat> mBgrChannel;
+	//split(rgba,mBgrChannel);
+	//imwrite("/data/local/resultAVG.jpg", mBgrChannel[0]);
+	//imwrite("/data/local/resultNON.jpg", mBgrChannel[1]);
+	//imwrite("/data/local/resultMAX.jpg", mBgrChannel[2]);
 
 	LOGE("destroying...");
 	mCameraGL->destroy();

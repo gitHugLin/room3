@@ -16,6 +16,7 @@ enum OUTPUT_FMT {
 
 struct cv_fimc_buffer {
 	void	*start;
+	int format;
 	int share_fd;
 	size_t	length;
 	int stride;
@@ -28,7 +29,7 @@ class CameraGL {
 		bool initialized;
 		CameraGL();
 		~CameraGL();
-		void init(alloc_device_t *m_alloc_dev, int width, int height);
+		void init(alloc_device_t *m_alloc_dev, int width, int height, int buf_cnt = 4);
 		void update(struct cv_fimc_buffer *m_buffers_capture);
 		long process(int* targetAddr, int mode = OUTPUT_NONE);
 		void destroy();

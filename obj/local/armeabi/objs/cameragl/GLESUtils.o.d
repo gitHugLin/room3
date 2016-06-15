@@ -81,6 +81,70 @@ obj/local/armeabi/objs/cameragl/GLESUtils.o: jni/GLESUtils.cpp \
  jni/log.h jni/CameraGL.h \
  /opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/jni.h \
  /opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/assert.h \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/opencv.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/cvdef.h \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/hal/interface.h \
+ /opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/cstddef \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/version.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/base.hpp \
+ /opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/climits \
+ /opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/algorithm \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/cvstd.hpp \
+ /opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/cstring \
+ /opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/cctype \
+ /opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/string \
+ /opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/cmath \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/ptr.inl.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/neon_utils.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/traits.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/matx.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/saturate.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/fast_math.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/types.hpp \
+ /opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/cfloat \
+ /opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/vector \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/mat.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/bufferpool.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/mat.inl.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/persistence.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/operations.hpp \
+ /opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/cstdio \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/cvstd.inl.hpp \
+ /opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/complex \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/utility.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/core_c.h \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/types_c.h \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/optim.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/imgproc.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/imgproc/imgproc_c.h \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/imgproc/types_c.h \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/photo.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/photo/photo_c.h \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/video.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/video/tracking.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/video/background_segm.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/video/tracking_c.h \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/features2d.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/flann/miniflann.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/flann/defines.h \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/flann/config.h \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/objdetect.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/objdetect/detection_based_tracker.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/objdetect/objdetect_c.h \
+ /opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/deque \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/calib3d.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/affine.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/calib3d/calib3d_c.h \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/imgcodecs.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/videoio.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/highgui.hpp \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/highgui/highgui_c.h \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/imgcodecs/imgcodecs_c.h \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/videoio/videoio_c.h \
+ /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/ml.hpp \
+ /opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/map \
+ /opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/iostream \
  /opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/gui/GLConsumer.h \
  /opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/gui/IGraphicBufferProducer.h \
  /opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/binder/IInterface.h \
@@ -93,10 +157,6 @@ obj/local/armeabi/objs/cameragl/GLESUtils.o: jni/GLESUtils.cpp \
  /opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/utils/Vector.h \
  /opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/cutils/log.h \
  /opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/log/log.h \
- /opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/pthread.h \
- /opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/time.h \
- /opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/sched.h \
- /opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/linux/sched.h \
  /opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/log/logd.h \
  /opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/log/uio.h \
  /opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/utils/VectorImpl.h \
@@ -303,6 +363,134 @@ jni/CameraGL.h:
 
 /opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/assert.h:
 
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/opencv.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/cvdef.h:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/hal/interface.h:
+
+/opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/cstddef:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/version.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/base.hpp:
+
+/opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/climits:
+
+/opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/algorithm:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/cvstd.hpp:
+
+/opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/cstring:
+
+/opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/cctype:
+
+/opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/string:
+
+/opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/cmath:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/ptr.inl.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/neon_utils.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/traits.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/matx.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/saturate.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/fast_math.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/types.hpp:
+
+/opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/cfloat:
+
+/opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/vector:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/mat.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/bufferpool.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/mat.inl.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/persistence.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/operations.hpp:
+
+/opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/cstdio:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/cvstd.inl.hpp:
+
+/opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/complex:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/utility.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/core_c.h:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/types_c.h:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/optim.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/imgproc.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/imgproc/imgproc_c.h:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/imgproc/types_c.h:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/photo.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/photo/photo_c.h:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/video.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/video/tracking.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/video/background_segm.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/video/tracking_c.h:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/features2d.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/flann/miniflann.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/flann/defines.h:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/flann/config.h:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/objdetect.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/objdetect/detection_based_tracker.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/objdetect/objdetect_c.h:
+
+/opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/deque:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/calib3d.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/core/affine.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/calib3d/calib3d_c.h:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/imgcodecs.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/videoio.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/highgui.hpp:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/highgui/highgui_c.h:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/imgcodecs/imgcodecs_c.h:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/videoio/videoio_c.h:
+
+/opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/include/opencv2/ml.hpp:
+
+/opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/map:
+
+/opt/android-ndk-linux/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.8/include/iostream:
+
 /opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/gui/GLConsumer.h:
 
 /opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/gui/IGraphicBufferProducer.h:
@@ -326,14 +514,6 @@ jni/CameraGL.h:
 /opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/cutils/log.h:
 
 /opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/log/log.h:
-
-/opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/pthread.h:
-
-/opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/time.h:
-
-/opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/sched.h:
-
-/opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/linux/sched.h:
 
 /opt/android-ndk-linux/android-ndk-r10e/platforms/android-21/arch-arm/usr/include/log/logd.h:
 

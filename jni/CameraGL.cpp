@@ -50,9 +50,9 @@ CameraGL::~CameraGL()
 
 }
 
-void CameraGL::init(alloc_device_t *m_alloc_dev, int width, int height)
+void CameraGL::init(alloc_device_t *m_alloc_dev, int width, int height, int buf_cnt)
 {
-    g_APUnit = new GLESUtils();
+    g_APUnit = new GLESUtils(buf_cnt);
     g_APUnit->initOpenGLES(m_alloc_dev, width, height);
 
 	initialized = true;
