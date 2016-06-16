@@ -453,6 +453,7 @@ int GLESUtils::Progress(int* targetAddr, int mode)
 	//imwrite("/data/local/block.jpg",block);
 	unsigned char *blockPtr = NULL;
 	GLfloat blockBuff[256];
+	//以下数组用来调试
 	GLfloat blockTest[40] = { 72  ,  96 , 108 , 68   , 68   , 88 , 84  ,  68   , 152 , 188 ,
 												   148 ,  32 ,  68  , 112 , 164 , 96 , 196 , 264 , 204,  84  , 
 												     44 , 104, 136,  92  ,  184 , 172, 244, 76 ,   48,    52   ,  
@@ -461,8 +462,8 @@ int GLESUtils::Progress(int* targetAddr, int mode)
 	//LOGD("mBlkHeight =   %d,mBlkWidth =   %d\n", mBlkHeight,mBlkWidth);
 	for(int j = 0; j < mBlkHeight;j++) {
 		for(int i = 0;i < mBlkWidth;i++) {
-			blockBuff[i+j*mBlkWidth] = *(blockPtr+(i+j*mBlkWidth)*4+3);
-			blockBuff[i+j*mBlkWidth] = 120;
+			blockBuff[i+j*mBlkWidth] = *(blockPtr+(i+j*mBlkWidth)*4+1);
+			//blockBuff[i+j*mBlkWidth] = blockTest[i+j*mBlkWidth];
 			LOGD("blockBuff[%d] =   %f\n",i+j*mBlkWidth,blockBuff[i+j*mBlkWidth]);
 		}
 	}
