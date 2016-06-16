@@ -47,7 +47,7 @@ int main () {
 		Mat bayer;
         bayer = imread( "/sdcard/night.pgm",0);
         cvtColor(bayer, rgb, CV_BayerBG2RGB);
-        imwrite("/data/local/srcImage.jpg",rgb);
+        //imwrite("/data/local/srcImage.jpg",rgb);
 		width = rgb.cols;
 		height = rgb.rows;
 		mCameraGL->init(NULL, width, height);

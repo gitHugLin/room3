@@ -77,10 +77,9 @@ const char gStep2VertexShader[] =
                 "}\n";
 
 const char gStep2FragmentShader[] =
-        "#extension GL_OES_EGL_image_external : require\n"
         "precision highp float;\n"
                 "varying vec2 texCoord;\n"
-                "uniform samplerExternalOES u_samplerTexture;\n"
+                "uniform sampler2D u_samplerTexture;\n"
                 "void main() {\n"
                 "		vec4 oldPixel = texture2D(u_samplerTexture,texCoord);\n"
                 " 		gl_FragColor = vec4( 0.0,oldPixel.y,0.0,1.0);\n"
@@ -123,47 +122,140 @@ const char gToneMapFragmentShader[] =
 				"else{blkSizeOffset = blkSizeOffset/511.0;\n"
 				"blkIndex = (blkSizeOffset*511.0) + blkCenter;}\n"
 				"return blkIndex;}\n"
-				"float gain = 0.0,oldGain =  0.0;\n"
-				"float channelOR = 0.0,channelOG =  0.0,channelOB =  0.0;\n"
-				"float blkIndexUY = 0.0,blkIndexLX =  0.0,blkIndexDY = 0.0,blkIndexRX =  0.0;\n"
-				"float blkDWeightUL = 0.0,blkDWeightUR =  0.0,blkDWeightDL = 0.0,blkDWeightDR =  0.0;\n"
-				"float blkMapUL = 0.0,blkMapUR =  0.0,blkMapDL = 0.0,blkMapDR =  0.0;\n" 
                 "void main() {\n"
                 "		vec3 newPixel;\n"
                 "		vec4 rgbPixel = texture2D(rgbTexture,texCoord);\n"
                 "		vec4 maxPixel = texture2D(maxLumTexture,texCoord);\n"
                 "		float col = texCoord.x*texSize.z*2.0;\n"
                 "		float row = texCoord.y*texSize.w*2.0;\n"
-				"		blkIndexUY = blockCenterIndexUL(row, 255.0, 256.0);\n"
-				"		blkIndexLX = blockCenterIndexUL(col, 255.0, 256.0);\n"
-				"		blkIndexDY = blkIndexUY + 512.0;\n"
-				"		blkIndexRX = blkIndexLX + 512.0;\n"
+				"		float blkIndexUY = blockCenterIndexUL(row, 255.0, 256.0);\n"
+				"		float blkIndexLX = blockCenterIndexUL(col, 255.0, 256.0);\n"
+				"		float blkIndexDY = blkIndexUY + 512.0;\n"
+				"		float blkIndexRX = blkIndexLX + 512.0;\n"
 				"		float blkDWeightY = row - blkIndexUY;\n"
 				"		float blkDWeightX = col - blkIndexLX;\n"
-				"		blkDWeightUL = (511.0 - blkDWeightY)*(511.0 - blkDWeightX);\n"
-				"		blkDWeightUR = (511.0 - blkDWeightY)*(blkDWeightX);\n"
-				"		blkDWeightDL = (blkDWeightY)*(511.0 - blkDWeightX);\n"
-				"		blkDWeightDR = (blkDWeightY)*(blkDWeightX);\n"
-				"		blkIndexUY = MAX(255.0, blkIndexUY)/511.0;\n"
-				"		blkIndexLX = MAX(255.0, blkIndexLX)/511.0;\n"
-				"		blkIndexDY = MIN(((texSize.y*511.0) - 255.0), blkIndexDY)/511.0;\n"
-				"		blkIndexRX = MIN(((texSize.x*511.0) - 255.0), blkIndexRX)/511.0;\n"
+				"		float blkDWeightUL = (512.0 - blkDWeightY)*(512.0 - blkDWeightX);\n"
+				"		float blkDWeightUR = (512.0 - blkDWeightY)*(blkDWeightX);\n"
+				"		float blkDWeightDL = (blkDWeightY)*(512.0 - blkDWeightX);\n"
+				"		float blkDWeightDR = (blkDWeightY)*(blkDWeightX);\n"
+				"		blkIndexUY = MAX(255.0, blkIndexUY)/512.0;\n"
+				"		blkIndexLX = MAX(255.0, blkIndexLX)/512.0;\n"
+				"		blkIndexDY = MIN(((texSize.y*512.0) - 255.0), blkIndexDY)/512.0;\n"
+				"		blkIndexRX = MIN(((texSize.x*512.0) - 255.0), blkIndexRX)/512.0;\n"
 				"		float blkLumiUL = blockLum[int(blkIndexUY*texSize.x + blkIndexLX)];\n"
 				"		float blkLumiUR = blockLum[int(blkIndexUY*texSize.x + blkIndexRX)];\n"
 				"		float blkLumiDL = blockLum[int(blkIndexDY*texSize.x + blkIndexLX)];\n"
 				"		float blkLumiDR = blockLum[int(blkIndexDY*texSize.x + blkIndexRX)];\n"
-				"		blkMapUL = blkMeansGain(blkLumiUL, maxPixel.z);\n"
-				"		blkMapUR = blkMeansGain(blkLumiUR, maxPixel.z);\n"
-				"		blkMapDL = blkMeansGain(blkLumiDL, maxPixel.z);\n"
-				"		blkMapDR = blkMeansGain(blkLumiDR, maxPixel.z);\n"
-				"		oldGain = ((blkDWeightUL*blkMapUL)/65535.0) + ((blkDWeightUR*blkMapUR)/65535.0) + ((blkDWeightDL*blkMapDL)/65535.0) + ((blkDWeightDR*blkMapDR)/65535.0);\n"
-				"		gain = oldGain;\n"
-				"		channelOR = MIN((rgbPixel.r*255.0*gain + 8191.0)/16383.0, 4094.0)/16.0;\n"
-				"		channelOG = MIN((rgbPixel.g*255.0*gain + 8191.0)/16383.0, 4094.0)/16.0;\n"
-				"		channelOB = MIN((rgbPixel.b*255.0*gain + 8191.0)/16383.0, 4094.0)/16.0;\n"
+				"		float blkMapUL = blkMeansGain(blkLumiUL, maxPixel.z*255.0);\n"
+				"		float blkMapUR = blkMeansGain(blkLumiUR, maxPixel.z*255.0);\n"
+				"		float blkMapDL = blkMeansGain(blkLumiDL, maxPixel.z*255.0);\n"
+				"		float blkMapDR = blkMeansGain(blkLumiDR, maxPixel.z*255.0);\n"
+				"		float oldGain = ((blkDWeightUL*blkMapUL)/65536.0) + ((blkDWeightUR*blkMapUR)/65536.0) + ((blkDWeightDL*blkMapDL)/65536.0) + ((blkDWeightDR*blkMapDR)/65536.0);\n"
+				"		float gain = oldGain;\n"
+				//"		if( blkLumiUL > 150 || blkLumiUR > 150 || blkLumiDL > 150 ||blkLumiDR > 150 )\n"
+				//"		gain = gain/2;\n"
+				"		float channelOR = MIN((rgbPixel.r*255.0*gain + 8192.0)/16384.0, 4095.0)/16.0;\n"
+				"		float channelOG = MIN((rgbPixel.g*255.0*gain + 8192.0)/16384.0, 4095.0)/16.0;\n"
+				"		float channelOB = MIN((rgbPixel.b*255.0*gain + 8192.0)/16384.0, 4095.0)/16.0;\n"
 				"		newPixel = vec3(channelOR/255.0,channelOG/255.0,channelOB/255.0);\n"
                 "  	gl_FragColor = vec4(newPixel,1.0);\n"   
-                "}\n"; 
+                "}\n";
+/*
+int wdrBase::toneMapping()
+{
+    LOGD("toneMapping is begin! ");
+	int x, y,row,col;
+	int channelR, channelG, channelB;
+	int channelOR, channelOG, channelOB;
+	LONG  oldGain;
+	LONG  blkDWeightUL, blkDWeightUR, blkDWeightDL, blkDWeightDR;//64bit
+	int rgbOffset = 0, gain;
+	int blkRadius, blkCenter;
+	int blkIndexUY, blkIndexLX, blkIndexDY, blkIndexRX;
+	int blkDWeightX, blkDWeightY;
+	int blkLumiUL, blkLumiUR, blkLumiDL, blkLumiDR;
+	int blkMapUL, blkMapUR, blkMapDL, blkMapDR;
+	//int gainMax = (0xffff>>10)<<10; //sw_wdr_gain_max = 0xffff; gainMax = 64512
+
+	blkRadius = TONE_MAP_BLK_SIZE; //256
+	blkCenter = (TONE_MAP_BLK_SIZE>>1)-1 + (TONE_MAP_BLK_SIZE>>1); //xCenter,yCenter = TONE_RADIUS_FIXPOINT_FACTOR( (blkRadius-1 + blkRadius)/2 )
+
+    int offset = 0;
+    UINT16 lpLumi;
+    UINT16* pMaxLum = mMaxLumiChannel->ptr<UINT16>(0);
+    INT32* pBlockLum = mBlockLumiBuff->ptr<INT32>(0);
+    UCHAR* pRgb = mSrcImage.ptr<UCHAR>(0);
+
+    for( y = 0; y < mHeight; y++)
+    {
+        for ( x = 0; x < mWidth; x++)
+        {
+            //the default Mat's order is BGR
+            offset = y * mWidth + x;
+        	channelR = *(pRgb+3*offset);
+            channelG = *(pRgb+3*offset+1);
+            channelB = *(pRgb+3*offset+2);
+            lpLumi = *(pMaxLum+offset);
+
+			row = TONE_RADIUS_FIXPOINT_FACTOR(y);   //y*2
+			col = TONE_RADIUS_FIXPOINT_FACTOR(x);   //x*2
+			// block center coordinates
+			blkIndexUY = blockCenterIndexUL(row, blkCenter, blkRadius);
+			blkIndexLX = blockCenterIndexUL(col, blkCenter, blkRadius);
+			blkIndexDY = blkIndexUY + TONE_RADIUS_FIXPOINT_FACTOR(TONE_MAP_BLK_SIZE);
+			blkIndexRX = blkIndexLX + TONE_RADIUS_FIXPOINT_FACTOR(TONE_MAP_BLK_SIZE);
+
+            //find out distance between current pixel and each block;
+			blkDWeightY = row - blkIndexUY; //distance from upleft = y(or x) - blockCenter_upleft
+			blkDWeightX = col - blkIndexLX;
+		    //calculate weight factors of these four blocks (8bit * 8bit)
+		    blkDWeightUL = (TONE_WEIGHT_FIXPOINT_FACTOR(1) - blkDWeightY)*(TONE_WEIGHT_FIXPOINT_FACTOR(1) - blkDWeightX);
+		    blkDWeightUR = (TONE_WEIGHT_FIXPOINT_FACTOR(1) - blkDWeightY)*(blkDWeightX);
+		    blkDWeightDL = (blkDWeightY)*(TONE_WEIGHT_FIXPOINT_FACTOR(1) - blkDWeightX);
+	        blkDWeightDR = (blkDWeightY)*(blkDWeightX);
+
+			// block index for finding out corresponding block lumi average
+			blkIndexUY = MAX(blkCenter, blkIndexUY) >> TONE_WEIGHT_FIXPOINT_BITS; //boundary clip to get average lumi of each block
+			blkIndexLX = MAX(blkCenter, blkIndexLX) >> TONE_WEIGHT_FIXPOINT_BITS;
+			blkIndexDY = MIN(((mBlkHeight<<TONE_WEIGHT_FIXPOINT_BITS) - blkCenter), blkIndexDY) >> TONE_WEIGHT_FIXPOINT_BITS;
+			blkIndexRX = MIN(((mBlkWidth<<TONE_WEIGHT_FIXPOINT_BITS) - blkCenter), blkIndexRX) >> TONE_WEIGHT_FIXPOINT_BITS;
+
+			//get average luminance of each block( or use data from last frame)
+			blkLumiUL = *(pBlockLum + blkIndexUY*mBlkWidth + blkIndexLX);
+			blkLumiUR = *(pBlockLum + blkIndexUY*mBlkWidth + blkIndexRX);
+			blkLumiDL = *(pBlockLum + blkIndexDY*mBlkWidth + blkIndexLX);
+			blkLumiDR = *(pBlockLum + blkIndexDY*mBlkWidth + blkIndexRX);
+
+			blkMapUL = blkMeansGain(blkLumiUL, lpLumi);
+			blkMapUR = blkMeansGain(blkLumiUR, lpLumi);
+			blkMapDL = blkMeansGain(blkLumiDL, lpLumi);
+			blkMapDR = blkMeansGain(blkLumiDR, lpLumi);
+
+            oldGain = ((blkDWeightUL*blkMapUL)>>16) + ((blkDWeightUR*blkMapUR)>>16) +
+                    ((blkDWeightDL*blkMapDL)>>16) + ((blkDWeightDR*blkMapDR)>>16);
+			gain = (int)oldGain;
+			//if(channelR)
+			//gain = MIN(gain, gainMax);
+            //get current pixel's luminance after tone mapping
+			channelOR = MIN(FIXPOINT_REVERT((channelR+rgbOffset)*gain
+			        , TONE_GAIN_FIXPOINT_BITS), BIT_MASK(12));
+            channelOG = MIN(FIXPOINT_REVERT((channelG+rgbOffset)*gain
+                    , TONE_GAIN_FIXPOINT_BITS), BIT_MASK(12));
+            channelOB = MIN(FIXPOINT_REVERT((channelB+rgbOffset)*gain
+                    , TONE_GAIN_FIXPOINT_BITS), BIT_MASK(12));
+            channelOR = (channelOR>>4);
+            channelOG = (channelOG>>4);
+            channelOB = (channelOB>>4);
+            *(pRgb+3*offset) = (UINT8)channelOR;
+            *(pRgb+3*offset+1) = (UINT8)channelOG;
+            *(pRgb+3*offset+2) = (UINT8)channelOB;
+
+        }
+    }
+    LOGD("toneMapping is end! ");
+
+    return 0;
+} */
 
 
 const GLfloat vVertices[] = {

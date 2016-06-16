@@ -137,6 +137,7 @@ int GLESUtils::initOpenGLES(alloc_device_t *m_alloc_dev, int width, int height)
 		mBlkWidth += 1;
 	if ((int)mHeight - (mBlkHeight << 8) > 0)
 		mBlkHeight += 1;
+
     // Init EGL display, surface and context
     if(!InitEGL())
     {
@@ -246,8 +247,8 @@ void GLESUtils::createFBOTexture2(alloc_device_t *m_alloc_dev, int fboWidth, int
     checkGlError("initializeTmpResEGLImage-gentex");
     glBindTexture(GL_TEXTURE_2D, *tex);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     checkGlError("initializeTmpResEGLImage-inittex");
@@ -391,7 +392,6 @@ int GLESUtils::Progress(int* targetAddr, int mode)
 	
     workBegin();
     int location;
-	
 	glUseProgram(programStep1Object);
     // Set the sampler texture unit index
     location = glGetUniformLocation(programStep1Object, "u_samplerTexture");
@@ -399,15 +399,38 @@ int GLESUtils::Progress(int* targetAddr, int mode)
     //LOGD("glGetUniformLocation u_samplerTexture: %d, id: %d", location, mCurrentId);
     checkGlError("GLProcess-glUniform1i");
 	GLProcess(mWidth, mHeight, mStep1FboId, NULL, OUTPUT_NONE);
-	
+	workEnd("GLProcess part 1 use time:");
+#if 0
+	LOGD("Open step One debug\n");
+	char* lumiAddr = NULL;
+    int error = mStep1GraphicBuffer->lock(GRALLOC_USAGE_SW_READ_RARELY, (void **) (&lumiAddr));
+    if (error != 0 || lumiAddr == NULL) {
+	    LOGD("mYUVTexBuffer->lock(...) failed: %d\n", error);
+	    return -1;
+	}
+	Mat luminance(mHeight, mWidth, CV_8UC4, (void*)lumiAddr);
+	vector<Mat> lumiChannel;
+	split(luminance,lumiChannel);
+	imwrite("/data/local/avgLum.jpg",lumiChannel[0]);
+	imwrite("/data/local/nonLum.jpg",lumiChannel[1]);
+	imwrite("/data/local/maxLum.jpg",lumiChannel[2]);
+	error = mStep1GraphicBuffer->unlock();
+	if (error != 0) {
+		LOGD("mYUVTexBuffer->unlock() failed: %d\n", error);
+	    return -1;
+	}
+#endif
+	workBegin();
 	glUseProgram(programStep2Object);
     // Set the sampler texture unit index
     location = glGetUniformLocation(programStep2Object, "u_samplerTexture");
     glUniform1i(location, 7);
     //LOGD("glGetUniformLocation u_samplerTexture: %d, id: %d", location, 7);
     checkGlError("GLProcess-glUniform1i");
-	GLProcess(mWidth, mHeight, mStep2FboId, NULL, OUTPUT_NONE);
+	GLProcess(mBlkWidth, mBlkHeight, mStep2FboId, NULL, OUTPUT_NONE);
+	workEnd("GLProcess part 2 use time:");
 	
+	workBegin();
 	// Set the sampler texture unit index
 	glUseProgram(programObject);
     int location1 = glGetUniformLocation(programObject, "maxLumTexture");
@@ -425,15 +448,25 @@ int GLESUtils::Progress(int* targetAddr, int mode)
 	    return -1;
 	}
 	Mat block(mBlkHeight, mBlkWidth, CV_8UC4, (void*)blockBufferAddr);
-	vector<Mat> blockChannel;
-	split(block,blockChannel);
+	//vector<Mat> blockChannel;
+	//split(block,blockChannel);
+	//imwrite("/data/local/block.jpg",block);
 	unsigned char *blockPtr = NULL;
 	GLfloat blockBuff[256];
-	blockPtr = (unsigned char *)blockChannel[1].data;
-	for(int i = 0; i < mBlkHeight*mBlkWidth;i++) {
-		//第二个通道存放的才是有用的数据
-		blockBuff[i] = *blockPtr++;
+	GLfloat blockTest[40] = { 72  ,  96 , 108 , 68   , 68   , 88 , 84  ,  68   , 152 , 188 ,
+												   148 ,  32 ,  68  , 112 , 164 , 96 , 196 , 264 , 204,  84  , 
+												     44 , 104, 136,  92  ,  184 , 172, 244, 76 ,   48,    52   ,  
+												     84,    64,  148, 100,  104,   68,   52,   48,    44,    64 };
+	blockPtr = (unsigned char *)block.data;
+	//LOGD("mBlkHeight =   %d,mBlkWidth =   %d\n", mBlkHeight,mBlkWidth);
+	for(int j = 0; j < mBlkHeight;j++) {
+		for(int i = 0;i < mBlkWidth;i++) {
+			blockBuff[i+j*mBlkWidth] = *(blockPtr+(i+j*mBlkWidth)*4+3);
+			blockBuff[i+j*mBlkWidth] = 120;
+			LOGD("blockBuff[%d] =   %f\n",i+j*mBlkWidth,blockBuff[i+j*mBlkWidth]);
+		}
 	}
+	
     err = mStep2GraphicBuffer->unlock();
 	if (err != 0) {
 		LOGD("mYUVTexBuffer->unlock() failed: %d\n", err);
@@ -442,7 +475,7 @@ int GLESUtils::Progress(int* targetAddr, int mode)
 	glUniform1fv(glGetUniformLocation(programObject, "blockLum"), 256, blockBuff);
     GLProcess(mWidth, mHeight, fboTargetHandle, targetAddr, mode);
     //LOGD("glGetUniformLocation u_samplerTexture: %d, id: %d", location2, mCurrentId);
-    workEnd("GLProcess");
+    workEnd("GLProcess part 3 use time:");
     return 1;
 }
 
