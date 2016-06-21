@@ -3,7 +3,7 @@ LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 OPENCV_INSTALL_MODULES:=on
 #include $(LOCAL_PATH)/../sdk/native/jni/OpenCV.mk
-include /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/OpenCV.mk
+include /Users/linqi/SDKDir/OpenCV-android-sdk/sdk/native/jni/OpenCV.mk
 LOCAL_C_INCLUDES += hardware/rk29/libgralloc_ump/
 LOCAL_C_INCLUDES += external/jpeg
 LOCAL_C_INCLUDES += hardware/rk29/libon2
@@ -26,7 +26,7 @@ include $(BUILD_SHARED_LIBRARY)
 include $(CLEAR_VARS)
 OPENCV_INSTALL_MODULES:=on
 #include $(LOCAL_PATH)/../sdk/native/jni/OpenCV.mk
-include /opt/android-opencv-sdk/OpenCV-android-sdk/sdk/native/jni/OpenCV.mk
+include /Users/linqi/SDKDir/OpenCV-android-sdk/sdk/native/jni/OpenCV.mk
 
 LOCAL_LDFLAGS := -Wl,--build-id -lskia -llog
 LOCAL_CFLAGS :=  -DSK_SUPPORT_LEGACY_SETCONFIG
